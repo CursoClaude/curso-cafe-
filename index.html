@@ -133,19 +133,8 @@
   .combo-topo { display: flex; align-items: center; gap: 16px; }
   .combo-topo img { width: 88px; height: 88px; object-fit: cover; border-radius: 50%; flex: none; }
   .combo-topo h3 { font: 700 24px 'Fraunces', serif; }
-  .campo { display: flex; flex-direction: column; gap: 6px; }
-  .campo label { font-size: 15px; font-weight: 700; color: var(--creme-escuro); }
-  .campo select {
-    appearance: none; min-height: 48px; padding: 12px 44px 12px 16px; border-radius: 14px; border: 2px solid var(--marrom-medio);
-    background: var(--creme) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%233B2418' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center;
-    color: var(--marrom-texto); font: 700 16px 'Nunito', sans-serif; cursor: pointer;
-  }
-  .combo-campos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media (max-width: 420px) { .combo-campos { grid-template-columns: 1fr; } }
-  .total { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; padding-top: 6px; border-top: 1px dashed var(--marrom-medio); }
-  .total s { color: #C9B6A4; font-size: 18px; }
-  .total strong { color: var(--caramelo-claro); font: 800 30px 'Nunito', sans-serif; }
-  .total .economia { font-size: 15px; color: var(--creme-escuro); width: 100%; }
+  .passos { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; font-size: 17px; line-height: 1.5; color: var(--creme-escuro); }
+  .combo .btn { align-self: flex-start; }
 
   /* Cardápio */
   .cardapio { background: var(--creme-escuro); }
@@ -241,8 +230,8 @@
 
 <div class="faixa" role="region" aria-label="Promoção">
   <div class="wrap">
-    <strong>15% OFF</strong>
-    <span>em qualquer bebida + doce, em todas as unidades.</span>
+    <strong>30% OFF</strong>
+    <span>na compra de um café de 1kg + um bolo de cenoura, em todas as unidades.</span>
     <a href="#promo">Saiba mais</a>
   </div>
 </div>
@@ -273,32 +262,23 @@
   <div class="wrap promo-card">
     <div class="promo-texto">
       <p class="script">combinação perfeita</p>
-      <h2>15% off</h2>
-      <p class="sub">em qualquer bebida + doce.</p>
-      <p class="desc">Escolha uma bebida do cardápio, junte com um doce e o desconto entra direto no caixa. Monte o seu combo ao lado e veja quanto fica.</p>
+      <h2>30% off</h2>
+      <p class="sub">no café de 1kg + bolo de cenoura.</p>
+      <p class="desc">Leve um pacote de café de 1kg pra casa, junte com um bolo de cenoura e o desconto de 30% entra direto no caixa.</p>
     </div>
-    <form class="combo" id="combo" aria-label="Monte seu combo" onsubmit="return false">
-      <p class="rotulo">Monte seu combo</p>
+    <div class="combo">
+      <p class="rotulo">Como funciona</p>
       <div class="combo-topo">
         <img src="imagens/cappuccino.jpg" alt="">
-        <h3 id="comboNome">Cappuccino + Bolo do dia</h3>
+        <h3>Café de 1kg + Bolo de cenoura</h3>
       </div>
-      <div class="combo-campos">
-        <div class="campo">
-          <label for="bebida">Bebida</label>
-          <select id="bebida"></select>
-        </div>
-        <div class="campo">
-          <label for="doce">Doce</label>
-          <select id="doce"></select>
-        </div>
-      </div>
-      <div class="total" aria-live="polite">
-        <s id="totalCheio">R$ 22,00</s>
-        <strong id="totalDesconto">R$ 18,70</strong>
-        <span class="economia" id="economia">Você economiza R$ 3,30</span>
-      </div>
-    </form>
+      <ol class="passos">
+        <li>Escolha o seu café de 1kg.</li>
+        <li>Junte um bolo de cenoura.</li>
+        <li>Os 30% de desconto entram direto no caixa.</li>
+      </ol>
+      <a href="#unidades" class="btn btn-caramelo">Encontrar uma unidade</a>
+    </div>
   </div>
 </section>
 
@@ -324,7 +304,6 @@
         <div id="listaComidas"></div>
       </div>
     </div>
-    <p class="nota">Os itens marcados com <strong>combo 15%</strong> entram na promoção junto com qualquer bebida.</p>
   </div>
 </section>
 
@@ -397,11 +376,10 @@
     { nome: 'Latte de caramelo', preco: 13.00 }
   ];
   const COMIDAS = [
-    { nome: 'Pão de queijo (porção)', preco: 8.00, doce: false },
-    { nome: 'Croissant', preco: 11.00, doce: true },
-    { nome: 'Bolo do dia (fatia)', preco: 12.00, doce: true }
+    { nome: 'Pão de queijo (porção)', preco: 8.00 },
+    { nome: 'Croissant', preco: 11.00 },
+    { nome: 'Bolo do dia (fatia)', preco: 12.00 }
   ];
-  const DESCONTO = 0.15;
   // dias: 0 = domingo ... 6 = sábado
   const UNIDADES = [
     { nome: 'Centro', diasTexto: 'Segunda a sábado', dias: [1, 2, 3, 4, 5, 6], abre: 7, fecha: 19 },
@@ -412,32 +390,10 @@
   const reais = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
   // Cardápio
-  const linha = (item, tag) =>
-    `<div class="item"><span class="nome">${item.nome}</span>${tag ? '<span class="tag">combo 15%</span>' : ''}<span class="fill"></span><span class="preco">${reais(item.preco)}</span></div>`;
-  document.getElementById('listaBebidas').innerHTML = BEBIDAS.map(b => linha(b, false)).join('');
-  document.getElementById('listaComidas').innerHTML = COMIDAS.map(c => linha(c, c.doce)).join('');
-
-  // Monte seu combo
-  const selBebida = document.getElementById('bebida');
-  const selDoce = document.getElementById('doce');
-  const DOCES = COMIDAS.filter(c => c.doce);
-  selBebida.innerHTML = BEBIDAS.map((b, i) => `<option value="${i}">${b.nome}</option>`).join('');
-  selDoce.innerHTML = DOCES.map((d, i) => `<option value="${i}">${d.nome}</option>`).join('');
-  selBebida.value = '1';
-  selDoce.value = String(DOCES.length - 1);
-
-  function atualizarCombo() {
-    const b = BEBIDAS[selBebida.value], d = DOCES[selDoce.value];
-    const cheio = b.preco + d.preco;
-    const final = Math.round(cheio * (1 - DESCONTO) * 100) / 100;
-    document.getElementById('comboNome').textContent = `${b.nome} + ${d.nome.replace(/ \(.*\)/, '')}`;
-    document.getElementById('totalCheio').textContent = reais(cheio);
-    document.getElementById('totalDesconto').textContent = reais(final);
-    document.getElementById('economia').textContent = `Você economiza ${reais(cheio - final)}`;
-  }
-  selBebida.addEventListener('change', atualizarCombo);
-  selDoce.addEventListener('change', atualizarCombo);
-  atualizarCombo();
+  const linha = item =>
+    `<div class="item"><span class="nome">${item.nome}</span><span class="fill"></span><span class="preco">${reais(item.preco)}</span></div>`;
+  document.getElementById('listaBebidas').innerHTML = BEBIDAS.map(linha).join('');
+  document.getElementById('listaComidas').innerHTML = COMIDAS.map(linha).join('');
 
   // Unidades com status "aberto agora"
   function estaAberta(u, agora) {
