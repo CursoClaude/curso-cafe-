@@ -138,10 +138,20 @@
 
   /* Cardápio */
   .cardapio { background: var(--creme-escuro); }
-  .cardapio .wrap { max-width: 1100px; display: flex; flex-direction: column; gap: 48px; }
+  .cardapio .wrap { max-width: 1200px; display: flex; flex-direction: column; gap: 48px; }
   .titulo { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
   .titulo h2 { font: 700 clamp(38px, 4.6vw, 58px)/1.05 'Fraunces', serif; color: var(--marrom); }
-  .grade-cardapio { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+  .grade-cardapio { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  @media (max-width: 1000px) { .grade-cardapio { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .grade-cardapio { grid-template-columns: 1fr; } }
+  .grade-cardapio .card { padding: 28px 24px; }
+  .grade-cardapio .card-topo h3 { font-size: 26px; }
+  .grade-cardapio .item { font-size: 17px; }
+  .grade-cardapio .card-promo { background: var(--marrom); color: var(--creme); }
+  .card-promo .card-topo h3 { color: var(--caramelo-claro); }
+  .card-promo .item { border-bottom-color: var(--marrom-medio); }
+  .card-promo .item .preco { color: var(--caramelo-claro); }
+  .card-promo .rodape { margin-top: auto; padding-top: 12px; font-size: 15px; line-height: 1.5; color: var(--creme-escuro); }
   .card { background: var(--creme-claro); border-radius: 28px; padding: 36px; display: flex; flex-direction: column; }
   .card-topo { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
   .card-topo h3 { font: 700 30px 'Fraunces', serif; }
@@ -291,17 +301,34 @@
     <div class="grade-cardapio">
       <div class="card">
         <div class="card-topo">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C8743A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h14v5a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6V9z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3c0 1.5-1 1.5-1 3M12 3c0 1.5-1 1.5-1 3"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C8743A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h14v5a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6V9z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3c0 1.5-1 1.5-1 3M12 3c0 1.5-1 1.5-1 3"/></svg>
           <h3>Cafés</h3>
         </div>
         <div id="listaBebidas"></div>
       </div>
       <div class="card">
         <div class="card-topo">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C8743A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14h16v2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-2z"/><path d="M6 14c0-4 2.7-7 6-7s6 3 6 7"/><path d="M12 4v3"/></svg>
-          <h3>Para comer</h3>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C8743A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="14" rx="8" ry="5"/><path d="M8 12.5c1-1 2.5-1 3.5 0M12.5 12.5c1-1 2.5-1 3.5 0"/></svg>
+          <h3>Salgados</h3>
         </div>
-        <div id="listaComidas"></div>
+        <div id="listaSalgados"></div>
+      </div>
+      <div class="card">
+        <div class="card-topo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C8743A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14h16v2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-2z"/><path d="M6 14c0-4 2.7-7 6-7s6 3 6 7"/><path d="M12 4v3"/></svg>
+          <h3>Doces</h3>
+        </div>
+        <div id="listaDoces"></div>
+      </div>
+      <div class="card card-promo">
+        <div class="card-topo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E5A774" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12 12 20l-8-8V4h8z"/><circle cx="8" cy="8" r="1.4"/></svg>
+          <h3>Promoção</h3>
+        </div>
+        <div class="item"><span class="nome">Café de 1kg</span></div>
+        <div class="item"><span class="nome">Bolo de cenoura</span></div>
+        <div class="item"><span class="nome">Juntos</span><span class="fill"></span><span class="preco">30% off</span></div>
+        <p class="rodape">O desconto entra direto no caixa, em todas as unidades.</p>
       </div>
     </div>
   </div>
@@ -375,8 +402,10 @@
     { nome: 'Cappuccino', preco: 10.00 },
     { nome: 'Latte de caramelo', preco: 13.00 }
   ];
-  const COMIDAS = [
-    { nome: 'Pão de queijo (porção)', preco: 8.00 },
+  const SALGADOS = [
+    { nome: 'Pão de queijo (porção)', preco: 8.00 }
+  ];
+  const DOCES = [
     { nome: 'Croissant', preco: 11.00 },
     { nome: 'Bolo do dia (fatia)', preco: 12.00 }
   ];
@@ -393,7 +422,8 @@
   const linha = item =>
     `<div class="item"><span class="nome">${item.nome}</span><span class="fill"></span><span class="preco">${reais(item.preco)}</span></div>`;
   document.getElementById('listaBebidas').innerHTML = BEBIDAS.map(linha).join('');
-  document.getElementById('listaComidas').innerHTML = COMIDAS.map(linha).join('');
+  document.getElementById('listaSalgados').innerHTML = SALGADOS.map(linha).join('');
+  document.getElementById('listaDoces').innerHTML = DOCES.map(linha).join('');
 
   // Unidades com status "aberto agora"
   function estaAberta(u, agora) {
